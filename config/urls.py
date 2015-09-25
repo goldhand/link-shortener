@@ -5,12 +5,8 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.views.generic import TemplateView
 
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name="home"),
-    url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name="about"),
-
     # Django Admin
     url(r'^admin/', include(admin.site.urls)),
 
@@ -18,7 +14,8 @@ urlpatterns = [
     url(r'^users/', include("link-shortener-challenge.users.urls", namespace="users")),
     url(r'^accounts/', include('allauth.urls')),
 
-    # Your stuff: custom urls includes go here
+    # Only need this link function
+    url(r'^', include("links.urls", namespace='links')),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

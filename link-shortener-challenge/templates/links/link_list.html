@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section id="links-list">
+
+<div class="list-group">
+  {% for obj in object_list %}
+    <a class="list-group-item" href="{% url 'links:shorten' obj.pk %}">
+      {{ obj.name }}
+    </a>
+  {% endfor %}
+</div>
+</section>
+
+{% endblock content %}
