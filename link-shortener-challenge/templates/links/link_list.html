@@ -1,21 +1,38 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block content_no_container %}
 
-<section id="links-list">
-
-<div class="list-group">
-  {% for obj in object_list %}
-  <div class="list-group-item">
-    <a class="" href="">
-      {{ obj.name }} >>
-    </a>
-    <a class="link-url pull-right" href="{% url 'links:shorten' obj.pk %}">
-      {{ domain }}{% url 'links:shorten' obj.pk %}
-    </a>
-  </div>
-  {% endfor %}
-</div>
+<section id="links-create" class="jumbotron">
+  <form class="form form-inline link-create-form" method="POST" action="{% url 'links:create' %}">
+    {% csrf_token %}
+    <div class="form-group">
+      <input class="urlinput form-control" id="id_base_url" maxlength="200" name="base_url" type="url" placeholder='URL'>
+    </div>
+    <div class="form-group">
+      <input class="textinput textInput form-control" id="id_name" maxlength="255" name="name" type="text" placeholder='Name for this url'>
+    </div>
+    <button type="submit" class="btn">Create</button>
+  </form>
 </section>
 
-{% endblock content %}
+
+<section id="links-list" class="container-fluid">
+
+  <div class="list-group">
+    {% for obj in object_list %}
+    <div class="list-group-item">
+      <a class="" href="">
+        {{ obj.name }} >>
+      </a>
+      <a class="link-url pull-right" href="{% url 'links:shorten' obj.pk %}">
+        {{ domain }}{% url 'links:shorten' obj.pk %}
+      </a>
+      <a href="{% url 'links:delete' obj.pk %}">
+        Delete
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock content_no_container %}

@@ -1,4 +1,4 @@
-from django.views.generic import CreateView, ListView, RedirectView
+from django.views.generic import CreateView, ListView, RedirectView, DeleteView
 from django.views.generic.detail import SingleObjectMixin
 
 from django.core.urlresolvers import reverse
@@ -54,3 +54,20 @@ class LinkRedirect(SingleObjectMixin, RedirectView):
 
     def get_redirect_url(self, pk):
         return self.get_object().base_url
+
+
+class LinkDelete(LoginRequiredMixin, DeleteView):
+    '''
+    Deletes a link
+    '''
+
+    model = Link
+
+    def get_queryset(self):
+        '''
+        users can only delete links they own
+        '''
+        return Link.objects.filter(owner=self.request.user)
+
+    def get_success_url(self):
+        return reverse('links:list')
