@@ -1,0 +1,3 @@
+[run]
+include = link-shortener-challenge/*
+omit = *migrations*
