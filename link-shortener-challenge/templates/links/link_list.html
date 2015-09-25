@@ -17,19 +17,19 @@
 
 
 <section id="links-list" class="container-fluid">
-
   <div class="list-group">
     {% for obj in object_list %}
     <div class="list-group-item">
-      <a class="" href="">
-        {{ obj.name }} >>
-      </a>
-      <a class="link-url pull-right" href="{% url 'links:shorten' obj.pk %}">
+      <span class="link-name">
+        {{ obj.name }}
+      </span>
+      <a class="link-url btn-link" href="{% url 'links:shorten' obj.pk %}" target="_blank">
         {{ domain }}{% url 'links:shorten' obj.pk %}
       </a>
-      <a href="{% url 'links:delete' obj.pk %}">
+      <a href="{% url 'links:delete' obj.pk %}" class="btn btn-danger pull-right btn-sm">
         Delete
       </a>
+      <div class="clearfix"></div>
     </div>
     {% endfor %}
   </div>
