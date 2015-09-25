@@ -1,4 +1,6 @@
-from djago.view.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, RedirectView
+from django.views.generic.detail import SingleObjectMixin
+
 from django.core.urlresolvers import reverse
 
 from braces.views import LoginRequiredMixin
@@ -7,6 +9,9 @@ from .models import Link
 
 
 class LinkCreate(LoginRequiredMixin, CreateView):
+    '''
+    creates a new link to shorten
+    '''
 
     model = Link
     fields = ['base_url', 'name']
@@ -19,7 +24,10 @@ class LinkCreate(LoginRequiredMixin, CreateView):
         return super(LinkCreate, self).form_valid(form)
 
 
-class LinkListView(LoginRequiredMixin, ListView):
+class LinkList(LoginRequiredMixin, ListView):
+    '''
+    lists links for a user
+    '''
 
     model = Link
 
@@ -28,3 +36,16 @@ class LinkListView(LoginRequiredMixin, ListView):
         return links that a user owns
         '''
         return Link.objects.filter(owner=self.request.user)
+
+
+class LinkRedirect(SingleObjectMixin, RedirectView):
+    '''
+    redirects a request to the link base_url
+    '''
+
+    permanent = False
+    model = Link
+    pk_url_kwarg = 'pk'  # TODO: Does SingleObjectMixin need this?
+
+    def get_redirect_url(self, pk):
+        return self.get_object().base_url
