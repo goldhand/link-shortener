@@ -12,10 +12,10 @@ class Link(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     base_url = models.URLField(help_text='Link you would like to shorten',
                                verbose_name='URL')
-    name = models.CharField(max_lenght=255,
+    name = models.CharField(max_length=255,
                             help_text='Title of page link is going to')
 
-    owner = models.ForeignKey(settings.USER_MODEL)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL)
 
     def __unicode__(self):
         return u'{}'.format(self.name)
