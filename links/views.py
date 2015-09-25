@@ -37,6 +37,11 @@ class LinkList(LoginRequiredMixin, ListView):
         '''
         return Link.objects.filter(owner=self.request.user)
 
+    def get_context_data(self):
+        context = super(LinkList, self).get_context_data()
+        context['domain'] = self.request.get_host().lower()
+        return context
+
 
 class LinkRedirect(SingleObjectMixin, RedirectView):
     '''

@@ -6,9 +6,14 @@
 
 <div class="list-group">
   {% for obj in object_list %}
-    <a class="list-group-item" href="{% url 'links:shorten' obj.pk %}">
-      {{ obj.name }}
+  <div class="list-group-item">
+    <a class="" href="">
+      {{ obj.name }} >>
     </a>
+    <a class="link-url pull-right" href="{% url 'links:shorten' obj.pk %}">
+      {{ domain }}{% url 'links:shorten' obj.pk %}
+    </a>
+  </div>
   {% endfor %}
 </div>
 </section>
