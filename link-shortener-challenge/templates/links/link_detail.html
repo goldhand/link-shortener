@@ -8,7 +8,7 @@
       {{ domain }}{% url 'links:shorten' obj.link_key %}
     </a>
     <p class="card-text"><small class="text-muted">
-      Views: <strong>5</strong></small>
+      Views: <strong>{{ obj.views }}</strong></small>
     </p>
     <a href="{% url 'links:update' obj.pk %}" class="card-link">
       Edit

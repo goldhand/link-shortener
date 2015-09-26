@@ -16,6 +16,7 @@ class Migration(migrations.Migration):
             model_name='link',
             name='link_key',
             field=models.SlugField(default=links.models.set_link_key,
+                                   help_text=b'Custom shortend version of link',
                                    unique=True, max_length=100),
         ),
     ]

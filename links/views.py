@@ -57,6 +57,7 @@ class LinkRedirect(RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
         link = get_object_or_404(Link, link_key=kwargs['link_key'])
+        link.update_views_counter(self.request)
         return link.base_url
 
 

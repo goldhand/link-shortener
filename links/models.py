@@ -34,6 +34,7 @@ class Link(models.Model):
     link_key = models.SlugField(unique=True, max_length=100,
                                 default=set_link_key,
                                 help_text='Custom shortend version of link')
+    views = models.IntegerField(default=0, help_text='View Counter')
 
     def __unicode__(self):
         return u'{}'.format(self.name)
@@ -50,3 +51,13 @@ class Link(models.Model):
         link that request should be routed to
         '''
         return reverse('links:shorten', kwargs={'link_key': self.link_key})
+
+    def update_views_counter(self, request):
+        '''
+        increase view counter if from a source other than this app host
+        '''
+        referer = request.META.get('HTTP_REFERER', None)
+        if not referer or referer.find(request.META['HTTP_HOST']) == -1:
+            # request has no referer or the host is not the same as the apps
+            self.views += 1
+            self.save()
