@@ -1,0 +1,20 @@
+
+<div class="card">
+  <div class="card-block">
+    <h3 class="card-title">
+      {{ obj.name }}
+    </h3>
+    <a class="card-subtitle text-muted" href="{% url 'links:shorten' obj.link_key %}" target="_blank">
+      {{ domain }}{% url 'links:shorten' obj.link_key %}
+    </a>
+    <p class="card-text"><small class="text-muted">
+      Views: <strong>5</strong></small>
+    </p>
+    <a href="{% url 'links:update' obj.pk %}" class="card-link">
+      Edit
+    </a>
+    <a href="{% url 'links:delete' obj.pk %}" class="card-link">
+      Delete
+    </a>
+  </div>
+</div>
