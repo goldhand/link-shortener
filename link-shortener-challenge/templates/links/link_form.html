@@ -4,12 +4,12 @@
 
 {% block content %}
 
-<form class="form" method="POST" action="{% url 'links:create' %}">
+<form class="form" method="POST" action="{{ action_url }}">
   {% csrf_token %}
   {{ form|crispy }}
   <div class="control-group">
     <div class="controls">
-      <button type="submit" class="btn">Create</button>
+      <button type="submit" class="btn">Save</button>
     </div>
   </div>
 </form>

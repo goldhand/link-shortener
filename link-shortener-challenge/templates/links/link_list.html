@@ -11,10 +11,9 @@
     <div class="form-group">
       <input class="textinput textInput form-control" id="id_name" maxlength="255" name="name" type="text" placeholder='Name for this url'>
     </div>
-    <button type="submit" class="btn">Create</button>
+    <button type="submit" class="btn btn-primary">Create</button>
   </form>
 </section>
-
 
 <section id="links-list" class="container-fluid">
   <div class="list-group">
@@ -23,12 +22,17 @@
       <span class="link-name">
         {{ obj.name }}
       </span>
-      <a class="link-url btn-link" href="{% url 'links:shorten' obj.pk %}" target="_blank">
-        {{ domain }}{% url 'links:shorten' obj.pk %}
+      <a class="link-url btn-link" href="{% url 'links:shorten' obj.link_key %}" target="_blank">
+        {{ domain }}{% url 'links:shorten' obj.link_key %}
       </a>
-      <a href="{% url 'links:delete' obj.pk %}" class="btn btn-danger pull-right btn-sm">
-        Delete
-      </a>
+      <div class="btn-group pull-right">
+        <a href="{% url 'links:update' obj.pk %}" class="btn btn-success btn-sm">
+          Edit
+        </a>
+        <a href="{% url 'links:delete' obj.pk %}" class="btn btn-danger btn-sm">
+          Delete
+        </a>
+      </div>
       <div class="clearfix"></div>
     </div>
     {% endfor %}
